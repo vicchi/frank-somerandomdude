@@ -103,7 +103,7 @@ function frank_build_settings_page() {
 					// IF THERES NOTHING, SET DEFAULTS
 					if(empty($frank_general)) {
 
-						$frank_general[] = array(
+						$frank_general = array(
 							'header'      					=> '',
 							'footer'            			=> '',
 							'tweet_post_button' 			=> false,
@@ -123,7 +123,7 @@ function frank_build_settings_page() {
 						if ($frank_updated) {
 
 							echo '<h4 class="saved-success">';
-							echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Franklin Street Theme Settings Have Been Updated.';
+							echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Frank Theme Settings Have Been Updated.';
 							echo '</h4>';
 
 						} else {
@@ -253,10 +253,10 @@ function frank_build_settings_page() {
 
 					// GET EXISTING SECTIONS, IF PRESENT
 					$frank_sections = get_option('_frank_options');
+					$frank_updated 	= false;
 
 					if (!empty($_POST) && wp_verify_nonce($_POST['frank_key'], 'frank_update_home_sections')) {
 
-						$frank_updated 	= false;
 						$sections 		= array();
 
 						foreach($_POST as $key => $value) {
@@ -284,11 +284,11 @@ function frank_build_settings_page() {
 								// ADD OUR DATA
 								$sections[] = array(
 									'display_type'      => $_POST['frank-display-type-' . $frank_section_flag],
-									'header'             => $_POST['frank-section-header-' . $frank_section_flag],
+									'header'             => frank_post_value_or_default('frank-section-header-' . $frank_section_flag, ''),
 									'title'             => $_POST['frank-section-title-' . $frank_section_flag],
 									'caption'           => $_POST['frank-section-caption-' . $frank_section_flag],
 									'num_posts'         => intval( $_POST['frank-section-num-posts-' . $frank_section_flag]),
-									'categories'        => $_POST['post_category' . $frank_post_category_flag]
+									'categories'        => frank_post_value_or_default('post_category' . $frank_post_category_flag, '')
 								);
 
 							}
@@ -327,7 +327,7 @@ function frank_build_settings_page() {
 						if ($frank_updated) {
 
 							echo '<h4 class="saved-success">';
-							echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Franklin Street Theme Settings Have Been Updated.';
+							echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Frank Theme Settings Have Been Updated.';
 							echo '</h4>';
 
 						} else {
@@ -506,7 +506,7 @@ function frank_build_settings_page() {
 					if ($frank_updated) {
 
 						echo '<h4 class="saved-success">';
-						echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Franklin Street Theme Settings Have Been Updated.';
+						echo '<img src="/wp-content/themes/frank/admin/images/success.png" /> Frank Theme Settings Have Been Updated.';
 						echo '</h4>';
 
 					} else {
